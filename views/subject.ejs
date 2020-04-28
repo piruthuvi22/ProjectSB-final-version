@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="app/public/js/jquery-3.2.1.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script> -->
+  ​
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <%- include('sections/links')%>
+  <title>Subject</title>
+  <style media="screen">
+    footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: #9C103E;
+      color: white;
+      text-align: center;
+      height: 9%;
+    }
+
+    a h1:hover {
+      color: #14bdee;
+    }
+
+    .imageOverText {
+      position: relative;
+      text-align: center;
+      color: white;
+    }
+
+    .centered {
+      font-size: xxx-large;
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+    }
+
+    .card-content:hover {
+
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    }
+  </style>
+</head>
+
+<body>​
+  <%- include('sections/navBar',{user:user, notification:notification})%>
+
+  <div style="height:90px;"></div>
+
+
+  <% subjects.forEach(function (subjects) { %>
+  <a href="/tutor/<%= subjects._id %>" style="text-decoration: none;">
+
+    ​<div class="col-md-3 cards float-left my-2">
+      <div class="card p-3 card-content">
+        <div class="text-info text-center mt-3">
+          <div class="text-danger text-center mt-2">
+            <div class="card-img m-0 p-0 imageOverText">
+              <img src="/images/home_slider_3.png" alt="banner" class="img-circle w-100">
+            </div>
+            <h1 class="centered"><%= subjects.subject %></h1>
+
+            <% if(subjects.tutors){ %>
+            <h5>Teachers <span class="badge badge-info mt-2"><%= subjects.tutors.length %></span></h5>
+            <% } else{ %>
+            <h5>Teachers <span class="badge badge-info mt-2">0</span></h5>
+            <% } %>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+  <% }) %>
+  ​
+  <script src="/js/jquery-3.2.1.min.js"></script>
+  <script src="/plugins/scrollmagic/ScrollMagic.min.js"></script>
+  <script src="/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+  <script src="/js/custom.js"></script>
+</body>
+
+</html>

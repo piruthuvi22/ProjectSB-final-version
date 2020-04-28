@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Live with Teachers</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+  <%- include('sections/links')%>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v6.0"></script>
+
+</head>
+
+<body>
+  <%- include('sections/navBar',{user:user})%>
+  <div style="height:90px;"></div>
+
+  <div class="container-fluid bg-1">
+    <div class="row p-2">
+      <div class="col-10 p-3 mx-auto" style="background-color:#f7edf2; border-radius: 8px;">
+        <div id="<%= live._id %>" class="unit p-3">
+          <h1 class="p-2"><%= live.title %></h1>
+          <div class="p-2">
+            <p class="p-3"><%= live.description %></p>
+            <div style="position:relative;">
+              <div id="fb-root"></div>
+              <div class="fb-video" data-href="https://www.facebook.com/100010382491137/videos/1089984134690993/"
+                data-width="500" data-show-text="false"></div>
+            </div>
+          </div>
+          <%if (live.comments) {%>
+          <% live.comments.forEach((comments)=>{%>
+          <div class="pl-3">
+            <div class="container card m-2">
+              <div class="row">
+                <div class="col-1 p-2">
+                  <img src="/images/profile.png" height="60px" alt="" class="">
+                </div>
+                <div class="col-8">
+                  <p class="mb-0 pb-0 pt-2"> <b><%= comments.name %></b><%= comments.time %> </p>
+                  <p><%= comments.comment %></p>
+                </div>
+                <div class="col-3">
+                  <%if (user._id == comments.user_id){%>
+                  <form action="/comment_live_delete/<%= live._id %>" method="post" class="p-3 mx-auto">
+                    <input type="hidden" name="unit_id" value="<%=live._id%>">
+                    <input type="hidden" name="comment_id" value="<%=comments._id%>">
+                    <button type="submit" class="btn btn-lg"><i class="fa fa-trash"></i></button>
+                  </form>
+                  <%}%>
+                        </div>
+                      </div>
+                      <% if (comments.replies){%>
+                  <%comments.replies.forEach((reply)=>{%>
+                  <div class=" bg-1 ml-3 card pl-2 mt-0">
+                    <div class="row">
+                      <div class="col-1 p-2">
+                        <img src="/images/profile.png" height="40px" alt="" class="">
+                      </div>
+                      <div class="col-9">
+                        <p class="ml-3 mb-0 pb-0"> <b><%= reply.name %></b> </p>
+                        <p class="ml-3"><%= reply.reply %></p>
+                      </div>
+                      <div class="col-2">
+                        <%if (user._id == reply.user_id){%>
+                        <form action="/reply_live_delete/<%= live._id %>" method="post" class="p-3 mx-auto">
+                          <input type="hidden" name="unit_id" value="<%=live._id%>">
+                          <input type="hidden" name="comment_id" value="<%=comments._id%>">
+                          <input type="hidden" name="reply_id" value="<%=reply._id%>">
+                          <button type="submit" class="btn btn-lg"><i class="fa fa-trash"></i></button>
+                        </form>
+                        <%}%>
+                              </div>
+                            </div>
+                        </div>
+                      <%})%>
+                        <%}%>
+                      <div>
+                        <form class="" action="/reply_live/<%= live._id %>" method="post">
+                        <input type="hidden" name="commentUser_id" value="<%= comments.user_id%>">
+                        <input type="hidden" name="unit_id" value="<%=live._id%>">
+                        <input type="hidden" name="comment_id" value="<%=comments._id%>">
+                        <input type="hidden" name="comment_name" value="<%= comments.name %>">
+                        <input type="hidden" name="name" value="<%=user.name%>">
+                        <input type="hidden" name="user_id" value="<%=user._id%>">
+                        <div class="input-group w-100  mt-2 mb-2 ml-3">
+                          <span class="input-group-addon "><i class="fa fa-user"></i></span>
+                          <input type="text" name="reply" class="form-control w-75" placeholder="Reply...">
+                          <button type="submit" class="btn border-1"><i class="fa fa-reply"></i></button>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <%})%>
+                  <%}%>
+              <div class="container bg-1">
+                      <form class="" action="/comment_live/<%= live._id %>" method="post">
+                  <fieldset class="border p-3 mb-2">
+                    <legend class="w-auto">&nbsp;&nbsp;Comments&nbsp;&nbsp;</legend>
+                    <input type="hidden" name="unit_id" value="<%=live._id%>">
+                    <input class="form-control" type="hidden" name="name" value="<%=user.name%>">
+                    <input type="hidden" name="user_id" value="<%=user._id%>">
+                    <div class="form-group">
+                      <textarea class="form-control" rows="4" type="text" name="comment"
+                        placeholder="Comments..."></textarea>
+                    </div>
+                    <div class="form-group">
+                      <button class="btn btn-secondary" type="submit" value="submit">Comment</button>
+                    </div>
+                  </fieldset>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script src="/js/jquery-3.2.1.min.js"></script>
+        <script src="/plugins/scrollmagic/ScrollMagic.min.js"></script>
+        <script src="/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+        <script src="/js/custom.js"></script>
+</body>
+
+</html>

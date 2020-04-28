@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>School BAG</title>
+
+  <script src="app/public/js/jquery-3.2.1.js"></script>
+
+  <style>
+    input[type='submit'], button, [aria-label]{
+      cursor: pointer;
+    }
+    #spoiler{
+      display: none;
+    }
+    .head {
+      background-color: powderblue;
+      padding: 3px;
+      margin: 3px;
+      text-align: center;
+      border-radius: 3px;
+    }
+  </style>
+
+</head>
+<body>
+<form action="javascript:void(0);" method="POST" onsubmit="addNote()">
+  <p class="head 50%">title</p> <input type="text" id="add-title" placeholder="New Note Title"><p class="head 50%">Description</p>
+  <input type="text" id="add-body" placeholder="New Note Body"><p class="head">Subject Id</p>
+  <input type="text" id="add-SubID" placeholder="New Note Body"><p class="head 50%">Unit Id</p>
+  <input type="text" id="add-UniID" placeholder="New Note Body"><p class="head 50%">Tutor Id</p>
+  <input type="text" id="add-TeachID" placeholder="New Note Body"><p class="head 50%">URL</p>
+  <input type="text" id="add-URL" placeholder="New Note Body">
+  <input type="submit" value="Add">
+</form>
+
+<div id="spoiler" role="aria-hidden">
+  <form action="javascript:void(0);" method="POST" onsubmit="saveEdit()">
+    <p class="head">Title</p><input type="text" id="edit-title"><p class="head">Desctiption</p>
+    <input type="text" id="edit-body"><p class="head">Subject Id</p>
+    <input type="text" id="edit-subID"><p class="head">Unit Id</p>
+    <input type="text" id="edit-uniID"><p class="head">Teacher Id</p>
+    <input type="text" id="edit-teachID"><p class="head">URL Id</p>
+    <input type="text" id="edit-urlID">
+    <input type="submit" value="Edit">
+  </form>
+</div>
+<div id="notes">
+
+</div>
+<!-- <script src="app/public/js/script1.js"></script> -->
+<script src="app/public/js/script2.js"></script>
+<!-- <script src="app/public/js/script3.js"></script> -->
+</body>
+</html>

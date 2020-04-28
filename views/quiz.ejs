@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <%- include('sections/links')%>
+</head>
+<style>
+     body {
+        background-color:#ffeceb;
+           } 
+</style>
+
+<body>
+    <div style="height: 100px;">
+
+    </div>
+    <%- include('sections/navBar',{user:user, notification:notification})%>
+
+    <!-- www.123formbuilder.com script begins here --><iframe allowTransparency="true"
+        style="min-height:700px; height:100%; overflow:auto;" width="100%" id="contactform123" name="contactform123"
+        marginwidth="0" marginheight="0" frameborder="0" src="//www.123formbuilder.com/my-contact-form-5407579.html">
+        <p></p>
+    </iframe><!-- www.123formbuilder.com script ends here -->
+
+
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/plugins/scrollmagic/ScrollMagic.min.js"></script>
+    <script src="/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="/js/custom.js"></script>
+</body>
+
+</html>

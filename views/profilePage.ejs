@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Edit Your profile</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="The Revelutionary Technology for Education">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%- include('sections/links')%>
+
+
+
+</head>
+
+
+
+<body>
+    <div class="super_container">
+
+        <%- include('sections/navBar')%>
+
+
+        <div style="height: 100px;"></div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9">
+                    <h1><%= user.username %></h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <!--left col-->
+
+                    <div class="text-center">
+                        <img src="/images/<%= user.username %>" height="200px" width="300px"
+                            onerror="this.src='/images/profile.png';"
+                            class="pic img-circle img-thumbnail rounded-circle z-depth-2" data-holder-rendered="true"
+                            alt="avatar">
+                        <form action="/uploadimage/<%= user.username %>" method="POST" enctype="multipart/form-data"
+                            class="mt-3">
+                            <div class="custom-file">
+                                <input type="file" name="image" class="custom-file-input file-upload" id="customFile">
+                                <label class="custom-file-label" for="customFile"></label>
+                                <input type="submit" value="Update" disabled id="updatepic"
+                                    class="btn btn-primary mt-2">
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+                <!--/col-3-->
+                <div class="col-sm-9 mt-4">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab"
+                                aria-controls="general" aria-selected="true">General</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="education-tab" data-toggle="tab" href="#education" role="tab"
+                                aria-controls="education" aria-selected="false">Education</a>
+                        </li>
+
+                    </ul>
+
+                    <form class="form" id="userform" action="/userinfo/<%= user._id %>" method="POST">
+
+                        <div class="tab-content" id="myTabContent">
+
+                            <div class="tab-pane fade show active" id="general" role="tabpanel"
+                                aria-labelledby="general-tab">
+
+                                <div class="form-group row mt-2">
+                                    <div class="col">
+                                        <label for="mobile">
+                                            <h4>username</h4>
+                                        </label>
+                                        <input type="text" value="<%= user.username %>" disabled class="form-control"
+                                            name="username" id="username" placeholder="Your name">
+                                    </div>
+
+                                    <div class="col">
+                                        <label for="name">
+                                            <h4>Name</h4>
+                                        </label>
+                                        <input type="text" value="<%= user.name %>" disabled class="form-control"
+                                            name="name" id="name" placeholder="Your name">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <label for="mobile">
+                                            <h4>Mobile</h4>
+                                        </label>
+                                        <input type="text" value="<%= user.mobile %>" class="form-control" disabled
+                                            name="mobile" id="mobile" maxlength="10" placeholder="Mobile Number"
+                                            title="Your mobile number">
+                                    </div>
+
+                                    <div class="col">
+                                        <label for="dob">
+                                            <h4>DOB</h4>
+                                        </label>
+                                        <input type="date" value="<%= user.dob %>" class="form-control" disabled
+                                            name="dob" id="dob" placeholder="DOB" title="Your DOB">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+
+                                    <div class="col">
+                                        <label for="email">
+                                            <h4>Email</h4>
+                                        </label>
+                                        <input type="email" value="<%= user.email %>" class="form-control" disabled
+                                            name="email" id="email" placeholder="you@email.com"
+                                            title="Your email address">
+                                    </div>
+
+
+                                    <div class="col">
+                                        <label for="district">
+                                            <h4>District</h4>
+                                        </label>
+                                        <select id="district" class="form-control" disabled name="district"
+                                            title="Your district" aria-placeholder="District">
+                                            <option selected><%= user.district %></option>
+                                            <option>Ampara</option>
+                                            <option>Anuradhapura</option>
+                                            <option>Badulla</option>
+                                            <option>Batticaloa</option>
+                                            <option>Colombo</option>
+                                            <option>Galle</option>
+                                            <option>Gampaha</option>
+                                            <option>Hambantota</option>
+                                            <option>Jaffna</option>
+                                            <option>Kalutara</option>
+                                            <option>Kandy</option>
+                                            <option>Kegalle</option>
+                                            <option>Kilinochchi</option>
+                                            <option>Kurunegala</option>
+                                            <option>Mannar</option>
+                                            <option>Matale</option>
+                                            <option>Matara</option>
+                                            <option>Moneragala</option>
+                                            <option>Mullaitivu</option>
+                                            <option>Nuwara Eliya</option>
+                                            <option>Polonnaruwa</option>
+                                            <option>Puttalam</option>
+                                            <option>Ratnapura</option>
+                                            <option>Trincomalee</option>
+                                            <option>Vavuniya</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                                <!--  <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="password">
+                                        <h4>Password</h4>
+                                    </label>
+                                    <input type="password" class="form-control"disabled="disabled" name="password" id="password"
+                                        placeholder="password" title="enter your password.">
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="password2">
+                                        <h4>Verify</h4>
+                                    </label>
+                                    <input type="password" class="form-control"disabled="disabled" name="password2" id="password2"
+                                        placeholder="password2" title="enter your password2.">
+                                </div>
+                            </div> -->
+
+
+                            </div>
+
+                            <!--Tab 2-->
+                            <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="education-tab">
+
+                                <div class="form-group row mt-2">
+                                    <div class="col">
+                                        <label for="school">
+                                            <h4>School</h4>
+                                        </label>
+                                        <input type="text" value="<%= user.school %>" disabled class="form-control"
+                                            name="school" id="school" placeholder="Your School" title="Your school">
+                                    </div>
+
+                                    <div class="col">
+                                        <label for="grade">
+                                            <h4>Grade</h4>
+                                        </label>
+                                        <input type="number" min="10" max="13" value="<%= user.grade %>" disabled
+                                            class="form-control" name="grade" id="grade" placeholder="Your Grade"
+                                            title="Your grade">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="form-group mt-4">
+
+                            <button class="btn btn-sm btn-success" disabled type="submit" id="save">
+                                <i class="fas fa-check"></i> Save</button>
+                        </div>
+
+
+                    </form>
+
+                    <div class="form-group mt-4">
+                        <button class="btn btn-sm btn-primary" id="change">
+                            <i class="fas fa-user-edit"></i>
+                            Change</button>
+
+                    </div>
+
+
+
+
+
+                    <!--/tab-pane-->
+                </div>
+                <!--/tab-content-->
+
+            </div>
+            <!--/col-9-->
+        </div>
+        <!--/row-->
+
+        <script>
+            $(document).ready(function () {
+
+
+                var readURL = function (input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('.pic').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+
+                $(".file-upload").on('change', function () {
+                    readURL(this);
+                    $("#updatepic").removeAttr("disabled")
+
+                });
+            });
+
+
+
+        </script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            $(function () {
+                $("#save").hide();
+                $("#change").click(function () {
+                    $("#save").show();
+                    $("#change").hide();
+                    $("#change").attr("disabled");
+                    $("#mobile").removeAttr("disabled");
+                    $("#dob").removeAttr("disabled");
+                    $("#email").removeAttr("disabled");
+                    $("#district").removeAttr("disabled");
+                    $("#save").removeAttr("disabled");
+                    $("#name").removeAttr("disabled");
+                    $("#school").removeAttr("disabled");
+                    $("#grade").removeAttr("disabled");
+
+
+
+                });
+
+                $("#save").click(function () {
+                    $("#change").removeAttr("disabled");
+                    $("#mobile").attr("disabled");
+                    $("#dob").attr("disabled");
+                    $("#email").attr("disabled");
+                    $("#district").attr("disabled");
+                    $("#name").attr("disabled");
+                    $("#school").attr("disabled");
+                    $("#grade").attr("disabled");
+                    $("#save").attr("disabled");
+
+
+
+
+                });
+            });
+        </script>
+
+        <script src="/js/jquery-3.2.1.min.js"></script>
+        <script src="/plugins/scrollmagic/ScrollMagic.min.js"></script>
+        <script src="/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+        <script src="/js/custom.js"></script>
+    </div>
+</body>
+
+</html>

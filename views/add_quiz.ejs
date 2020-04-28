@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <%- include('sections/links')%>
+  </head>
+  <body>
+    <form class="w-75" action="/add_quiz" method="post">
+      <input class="form-control" type="text" name="question" placeholder="question">
+      <input type="text" name="1" placeholder="first answer" class="form-control">
+      <input type="text" name="2" placeholder="secound answer" class="form-control">
+      <input type="text" name="3" placeholder="third answer" class="form-control">
+      <input type="text" name="4" placeholder="fourth answer"class="form-control">
+      <input type="number" name="correctAnswer" placeholder="answer">
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>

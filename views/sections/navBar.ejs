@@ -1,0 +1,159 @@
+<header class="header">
+
+  <!-- Header Content -->
+
+  <!-- <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top" style="background-color:#9C103E;">
+<div class="container-fluid">
+<a href="/" class="navbar-brand"><img src="/images/logo1.png" alt="SchoolBag"></a>
+<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarresponsive">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarresponsive">
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item active">
+      <a href="/" class="nav-link">Home</a>
+    </li>
+    <li class="nav-item active">
+      <a href="/" class="nav-link">Home</a>
+    </li>
+    <li class="nav-item active">
+      <a href="/" class="nav-link">Home</a>
+    </li>
+    <li class="nav-item active">
+      <a href="/" class="nav-link">Home</a>
+    </li>
+
+  </ul>
+
+</div>
+</div>
+</nav> -->
+
+
+  <div class="header_container" style="background-color:#9C103E;">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="header_content d-flex flex-row align-items-center justify-content-start">
+            <div class="logo_container">
+              <a href="/">
+                <img src="/images/logo1.png" height="60px" alt="SchoolBag">
+                <div class="logo_text logo1"><span id="school">School</span><span id="bag">Bag</span>
+                </div>
+              </a>
+            </div>
+            <nav class="main_nav_container ml-auto">
+              <ul class="main_nav">
+                <li><a style="text-decoration: none;" href="/">Home</a></li>
+                <li><a href="/#aboutUs" id="" style="text-decoration: none;">About</a></li>
+
+                <%if (user){%>
+                <li><a style="text-decoration: none;" href="/room">Chat</a></li>
+
+                <li>
+                  <div class="dropdown">
+                    <img alt="user" src="/images/notification.png" style="height: 30px;" id="notepic"
+                      class=" dropdown-toggle" data-toggle="dropdown">
+                    <div class="dropdown-menu shadow w-auto">
+                      <% if (notification){%>
+                      <% notification.forEach(function(notification){%>
+                      <a href="/syllabus/<%= notification.where%>" class="text-dark dropdown-item text-align-center"
+                        style="text-decoration: none;"><%= notification.who[1]%> <%= notification.what%> </a>
+                      <% }) %>
+                      <% }else{ %>
+                      <a href="#" class="text-dark dropdown-item text-align-center disabled"
+                        style="text-decoration: none;">No Notifications</a>
+                      <%}%>
+                        </div>
+                    </div>
+                  </li>
+
+
+
+                <li>
+                  <div class="dropdown">
+                    <img alt="user" src="/images/<%= user.username %>" onerror="this.src='/images/profile.png';"
+                      style="height: 50px;width:50px; border: 3px black solid" id="userpic" class=" dropdown-toggle
+                      rounded-circle"
+                      data-toggle="dropdown">
+                      <div class="dropdown-menu shadow w-auto">
+                        <img src="/images/<%= user.username %>" onerror="this.src='/images/profile.png';"
+                          alt="Profile Pic" class="ml-4" height="60px">
+                        <p class="text-align-center p-3"><b><%=user.name%></b> <br> <%=user.email%> </p>
+                        <hr>
+                        <a href="/profile" style="text-decoration: none;"
+                          class="text-dark dropdown-item text-align-center">Profile</a>
+                        <a href="/users/logout" style="text-decoration: none;"
+                          class="text-dark dropdown-item text-align-center">Logout</a>
+                      </div>
+                    </div>
+                </li>
+
+                <%}else{%>
+                <li><a href="/users/login" style="text-decoration: none;">Login</a></li>
+                <li><a href="/users/register" style="text-decoration: none;">Signup</a></li>
+                <%}%>
+
+                  </ul>
+
+                  <!-- Hamburger -->
+
+                  <div class="hamburger menu_mm">
+                    <i class="fa fa-bars menu_mm" aria-hidden="true"></i>
+                    <div class="menu d-flex flex-column align-items-end justify-content-start text-right menu_mm trans_400">
+                      <div class="menu_close_container"><div class="menu_close"><div></div><div></div></div></div>
+                      <nav class="menu_nav">
+                        <ul class="menu_mm">
+                          <li class="menu_mm"><a href="/"  style="text-decoration: none;">Home</a></li>
+                          <li class="menu_mm"><a href="/#aboutUs"  style="text-decoration: none;">About</a></li>
+
+                          <hr>
+                          <%if (user){%>
+                <li class="menu_mm"><a style="text-decoration: none;" href="/room">Chat</a></li>
+
+                <li>
+                  <img alt="user" src="/images/notification.png" style="height: 30px;" id="notepic">
+                  <% if (notification){%>
+                  <% notification.forEach(function(notification){%>
+                  <a href="/syllabus/<%= notification.where%>" class="text-dark dropdown-item text-align-center"
+                    style="text-decoration: none;"><%= notification.who[1]%> <%= notification.what%> </a>
+                  <% }) %>
+                  <% }else{ %>
+                  <a href="#" class="text-dark dropdown-item text-align-center disabled"
+                    style="text-decoration: none;">No Notifications</a>
+                  <%}%>
+                            </li>
+                          <li class="menu_mm">
+                                  <img src="/images/<%= user.username %>" onerror="this.src='/images/profile.png';"
+                  alt="Profile Pic" height="60px">
+                </li>
+                <li class="menu_mm">
+                  <p class="text-align-right"><b><%=user.name%></b><br> <%=user.email%> </p>
+                </li>
+                <hr>
+                <li class="menu_mm">
+                  <a href="/profile" style="text-decoration: none;" class="text-dark text-align-right">Profile</a><br>
+                </li>
+                <li class="menu_mm">
+                  <a href="/users/logout" style="text-decoration: none;" class="text-dark text-align-right">Logout</a>
+                </li>
+
+                <%}else{%>
+                <li><a href="/users/login" style="text-decoration: none;">Login</a></li>
+                <li><a href="/users/register" style="text-decoration: none;">Signup</a></li>
+                <%}%>
+                
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </nav>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    

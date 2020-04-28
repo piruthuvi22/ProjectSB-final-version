@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= user.name %>'s Profile</title>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+  <link rel="stylesheet" href="/styles/profileStyle.css">
+  <%- include('sections/links')%>
+
+  <style>
+    .featureImg {
+      height: auto;
+    }
+  </style>
+</head>
+
+<body style="background-color: #ebebeb;">
+  <div class="super_container">
+    <%- include('sections/navBar')%>
+
+    <div style="height: 70px;">
+
+    </div>
+    <div class="">
+      <div class="profile">
+        <div class="col-md-2">
+          <div class="profile-sidebar">
+            <!-- SIDEBAR USERPIC -->
+            <div class="profile-userpic">
+              <img src="/images/<%= user.username %>" onerror="this.src='/images/profile.png';" class="img-responsive"
+                alt="">
+            </div>
+            <!-- END SIDEBAR USERPIC -->
+            <!-- SIDEBAR USER TITLE -->
+            <div class="profile-usertitle">
+              <div class="profile-usertitle-name">
+                <%= user.name %> </div>
+              <div class="profile-usertitle-job">
+                Student
+              </div>
+            </div>
+            <!-- END SIDEBAR USER TITLE -->
+            <!-- SIDEBAR BUTTONS -->
+
+            <!-- END SIDEBAR BUTTONS -->
+            <!-- SIDEBAR MENU -->
+            <div class="profile-usermenu">
+              <ul class="nav">
+                <li class="active">
+                  <a href="#">
+                    <i class="glyphicon glyphicon-home"></i>
+                    Overview </a>
+                </li>
+                <li>
+                  <a href="/profilepage">
+                    <i class="glyphicon glyphicon-user"></i>
+                    Account Settings </a>
+                </li>
+                <!-- <li>
+                <a href="#" target="_blank">
+                  <i class="glyphicon glyphicon-ok"></i>
+                  Tasks </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="glyphicon glyphicon-flag"></i>
+                  Help </a>
+              </li> -->
+              </ul>
+            </div>
+            <!-- END MENU -->
+
+            <!-- <div class="portlet light bordered">
+            <div class="row list-separated profile-stat">
+              <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class="uppercase profile-stat-title"> 37 </div>
+                <div class="uppercase profile-stat-text"> Projects </div>
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class="uppercase profile-stat-title"> 51 </div>
+                <div class="uppercase profile-stat-text"> Tasks </div>
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class="uppercase profile-stat-title"> 61 </div>
+                <div class="uppercase profile-stat-text"> Uploads </div>
+              </div>
+            </div>
+            <div>
+              <h4 class="profile-desc-title">About <%= user.name %></h4>
+              <span class="profile-desc-text"> </span>
+
+              <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-twitter"></i>
+                <a href="">@piruthuvi</a>
+              </div>
+              <div class="margin-top-20 profile-desc-link">
+                <i class="fa fa-facebook"></i>
+                <a href="">Piruthuvi Raj</a>
+              </div>
+            </div>
+          </div> -->
+
+
+
+          </div>
+        </div>
+
+        <div class="col-md-10">
+          <div class="profile-content">
+            <img src="/images/welcome2.png">
+            <div class="container mt-5">
+              <div class="row">
+
+                <div class="col-md-4">
+                  <a href="/subject" style="text-decoration: none;">
+
+                    <div class="card-content">
+                      <div class="card-img">
+                        <img class="featureImg" src="/images/subjects.png" alt="subjects">
+
+                      </div>
+                      <div class="card-desc text-center">
+                        <span>Subjects</span>
+                      </div>
+                    </div>
+                  </a>
+
+                </div>
+
+                <div class="col-md-4 ">
+                  <a href="/tutes" style="text-decoration: none;">
+
+                    <div class="card-content">
+                      <div class="card-img">
+                        <img class="featureImg" src="/images/tutes.png" alt="tutes and pdf">
+
+                      </div>
+                      <div class="card-desc text-center">
+                        <span>Tutes</span>
+                      </div>
+                    </div>
+                  </a>
+
+                </div>
+
+                <div class="col-md-4 ">
+                  <a href="/live" style="text-decoration: none;">
+
+                    <div class="card-content">
+                      <div class="card-img">
+                        <img class="featureImg" src="/images/live.png" alt="live">
+
+                      </div>
+                      <div class="card-desc text-center">
+                        <span>Live</span>
+                      </div>
+                    </div>
+                  </a>
+
+                </div>
+
+
+                <div class="col-md-4 ">
+                  <a href="/quiz" style="text-decoration: none;">
+
+                    <div class="card-content">
+                      <div class="card-img">
+                        <img class="featureImg" src="/images/quiz.png" alt="quiz">
+
+                      </div>
+                      <div class="card-desc text-center">
+                        <span>Quiz</span>
+                      </div>
+                    </div>
+                  </a>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script src="/js/jquery-3.2.1.min.js"></script>
+  <script src="/plugins/scrollmagic/ScrollMagic.min.js"></script>
+  <script src="/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+  <script src="/js/custom.js"></script>
+</body>
+
+</html>

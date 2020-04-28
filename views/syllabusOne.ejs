@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Start Learning</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%- include('sections/links')%>
+  <!-- Material Design Bootstrap -->
+
+  <link rel="stylesheet" href="/styles/style.css">
+  <style>
+    .media .avatar {
+      width: 64px;
+    }
+
+    .shadow-textarea textarea.form-control::placeholder {
+      font-weight: 300;
+    }
+
+    .shadow-textarea textarea.form-control {
+      padding-left: 0.8rem;
+    }
+
+    button {
+      background: none;
+      background: transparent;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="super_container">
+    <%- include('sections/navBar')%>
+    <div style="height:90px;"></div>
+    <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: rgb(68, 68, 68);">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/subject"><i class="fa fa-book"></i> Change subject</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/tutor/<%= units.subjectid %>"><i class="fa fa-user"></i> Change Tutor</a>
+        </li>
+      </ul>
+    </nav>
+
+
+
+
+
+
+
+    <div class="wrapper">
+      <nav id="sidebar">
+        <div class="sidebar-header">
+          <h3>CONTENT</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+          <%if (unit){%>
+          <li class="list-group-item list-group-item-success pl-1"> <b>Lessons</b> </li>
+          <%unit.forEach(function(unit){%>
+          <% if (String(unit._id)==(units._id)) {%>
+          <li><a href="/syllabus/<%= unit._id %>" class="list-group-item list-group-item-light"
+              style="border-left:3px green solid"><%= unit.title %></a></li>
+          <%}else{%>
+          <li class="mt-1"><a href="/syllabus/<%= unit._id %>"
+              class="list-group-item list-group-item-light"><%= unit.title %></a></li>
+          <%};%>
+          <%})%>
+          <%}%>
+			</ul>
+		</nav>
+
+		<div class="content container-fluid">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+				<button type="button" id="sidebarCollapse" class="btn btn-light">
+					<i class="fa fa-align-justify"></i>
+				</button>
+			</nav>
+
+      
+    <div class="col p-3" style="background-color:#f7edf2; border-radius: 8px;">
+      <div id="<%= units._id %>" class="unit p-3">
+          <h1 class="p-2"><%= units.title %></h1>
+          <div class="p-2">
+            <div style="position:relative;padding-top:56.25%;">
+              <iframe style="position: absolute;top:0;left:0;width:100%;height:100%;" src="<%= units.urlID %>"
+                frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+            <div id="complete">
+              <% if (units.completed.includes(user.username)) {%>
+              <button class="btn btn-lg" onclick="makeUncompleted('<%= units._id %>')"><i
+                  class="fas fa-times-circle"></i><%= units.completed.length %> have completed</i></button>
+              <% }else { %>
+              <button class="btn btn-lg" onclick="makeCompleted('<%= units._id %>')"><i
+                  class="fas fa-check-circle"></i></button>
+              <% } %>
+              <p class="p-3"><%= units.description %></p>
+
+            </div>
+          </div>
+    </div>
+  </div>
+
+  <div>
+
+    <%if (units.comments) {%>
+    <% units.comments.forEach((comments)=>{%>
+    <div class="media mt-3 shadow-textarea">
+      <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="/images/<%= comments.name %>" alt="Avatar">
+      <div class="media-body">
+        <div class="media mt-3 shadow-textarea">
+          <div class="media-body">
+            <h5 class="mt-0 font-weight-bold" style="color: #14bdee;"><%= comments.name %></h5>
+            <%= comments.comment %>
+          </div>
+          <%if (user._id == comments.user_id){%>
+          <form action="/comment_delete/<%= units._id %>" method="post">
+            <input type="hidden" name="unit_id" value="<%=units._id%>">
+            <input type="hidden" name="comment_id" value="<%=comments._id%>">
+            <button type="submit" class="btn btn-lg"><i class="fa fa-trash" style="color:red;"></i></button>
+          </form>
+          <%}%>
+      </div>
+        <hr>
+        <% if (comments.replies){%>
+          <%comments.replies.forEach((reply)=>{%>
+          <div class="media mt-3 shadow-textarea">
+            <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="/images/<%= reply.name %>"
+              alt="Generic placeholder image">
+            <div class="media-body">
+              <h5 class="mt-0 font-weight-bold"style="color:#14bdee"><%= reply.name %><%= reply.time%></h5>
+              <%= reply.reply %>
+            </div>
+
+            <%if (user._id == reply.user_id){%>
+            <form action="/reply_delete/<%= units._id %>" method="post">
+              <input type="hidden" name="unit_id" value="<%=units._id%>">
+              <input type="hidden" name="comment_id" value="<%=comments._id%>">
+              <input type="hidden" name="reply_id" value="<%=reply._id%>">
+              <button type="submit" class="btn btn-sm"><i class="fa fa-trash" style="color:#9C103E;"></></i></button>
+            </form>
+            <%}%>
+            
+        </div>
+        <%})%>
+            <%}%>
+      </div>
+    </div>
+   
+<div>
+  <form action="/reply/<%= units._id %>" method="post">
+            <input type="hidden" name="commentUser_id" value="<%= comments.user_id%>">
+            <input type="hidden" name="unit_id" value="<%=units._id%>">
+            <input type="hidden" name="comment_id" value="<%=comments._id%>">
+            <!-- <input type="hidden" name="comment_name" value="<%= comments.name %>"> -->
+            <input type="hidden" name="name" value="<%=user.username%>">
+            <input type="hidden" name="user_id" value="<%=user._id%>">
+            <div class="form-group rounded-corners container-fluid mt-2" style="display:inline-flex;">
+              <input type="text" class="form-control z-depth-1" name="reply" placeholder="Reply..."
+                id="exampleFormControlTextarea345" rows="2" placeholder="Write your reply...">
+              <button type="submit" class="btn btn-sm"><i class="fa fa-reply" style="	color: #14bdee;"></></i></button>
+            </div>
+            </form>
+          </div>
+
+          <%})%>
+          <%}%>
+
+ 
+
+      <form action="/comment/<%= units._id %>" method="post">
+          <fieldset>
+            <legend>&nbsp;&nbsp;Comments&nbsp;&nbsp;</legend>
+            <input type="hidden" name="unit_id" value="<%=units._id%>">
+            <input class="form-control" type="hidden" name="name" value="<%=user.username%>">
+            <input type="hidden" name="user_id" value="<%=user._id%>">
+            <div class="form-group">
+              <textarea class="form-control" rows="4" type="text" name="comment" placeholder="Comments..."></textarea>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-secondary" type="submit" value="submit">Comment</button>
+            </div>
+          </fieldset>
+          </form>
+        </div>
+
+
+
+
+
+        <!-- <%if (units.comments) {%>
+  <% units.comments.forEach((comments)=>{%>
+  <div class="mt-2">
+
+    <div class="container card">
+      <div class=" row">
+        <div class="col p-2">
+          <img src="/images/<%= comments.name %>" height="50px" width="50px" alt="" class="rounded-circle">
+        </div>
+        <div class="col  m-auto">
+          <p class=""> <b><%= comments.name %></b> </p>
+          <p class=""><%= comments.comment %></p>
+        </div>
+        <div class="col">
+          <%if (user._id == comments.user_id){%>
+          <form action="/comment_delete/<%= units._id %>" method="post" class="p-3 mx-auto">
+            <input type="hidden" name="unit_id" value="<%=units._id%>">
+            <input type="hidden" name="comment_id" value="<%=comments._id%>">
+            <button type="submit" class="btn btn-lg"><i class="fa fa-trash"></i></button>
+
+          </form>
+          <%}%>
+    
+                      </div>
+                    </div><hr>
+    
+                    <% if (comments.replies){%>
+          <%comments.replies.forEach((reply)=>{%>
+          <div class=" bg-1  mt-0">
+            <div class="row p-0 m-0">
+              <div class="col-1 p-2">
+                <img src="/images/<%= reply.name %>" height="40px" width="40p" alt="" class="rounded-circle">
+              </div>
+              <div class="col-9">
+                <p class="ml-3 mb-0 p-0"> <b><%= reply.name %><%= reply.time%></b> </p>
+                <p class="ml-3"><%= reply.reply %></p>
+              </div>
+              <div class="col-2">
+                <%if (user._id == reply.user_id){%>
+                <form action="/reply_delete/<%= units._id %>" method="post" class="p-2 mx-auto">
+                  <input type="hidden" name="unit_id" value="<%=units._id%>">
+                  <input type="hidden" name="comment_id" value="<%=comments._id%>">
+                  <input type="hidden" name="reply_id" value="<%=reply._id%>">
+                  <button type="submit" class="btn btn-sm"><i class="fa fa-trash"></i></button>
+                </form>
+                <%}%>
+              </div>
+                                </div>
+                            </div><hr>
+                          <%})%>
+                <%}%>
+                          <div>
+                            <form class="" action="/reply/<%= units._id %>" method="post">
+                <input type="hidden" name="commentUser_id" value="<%= comments.user_id%>">
+                <input type="hidden" name="unit_id" value="<%=units._id%>">
+                <input type="hidden" name="comment_id" value="<%=comments._id%>">
+                 <input type="hidden" name="comment_name" value="<%= comments.name %>"> 
+                <input type="hidden" name="name" value="<%=user.username%>">
+                <input type="hidden" name="user_id" value="<%=user._id%>">
+                <div class="input-group w-100  mt-2 mb-2 ml-3">
+                  <span class="input-group-addon "><i class="fa fa-user"></i></span>
+                  <input type="text" name="reply" class="form-control w-75" placeholder="Reply...">
+                  <button type="submit" class="btn border-1"><i class="fa fa-reply"></i></button>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <%})%>
+          <%}%> 
+                   <div class="container bg-1">
+                          <form class="" action="/comment/<%= units._id %>" method="post">
+          <fieldset class="border p-3 mb-2">
+            <legend class="w-auto">&nbsp;&nbsp;Comments&nbsp;&nbsp;</legend>
+            <input type="hidden" name="unit_id" value="<%=units._id%>">
+            <input class="form-control" type="hidden" name="name" value="<%=user.username%>">
+            <input type="hidden" name="user_id" value="<%=user._id%>">
+            <div class="form-group">
+              <textarea class="form-control" rows="4" type="text" name="comment" placeholder="Comments..."></textarea>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-secondary" type="submit" value="submit">Comment</button>
+            </div>
+          </fieldset>
+          </form>
+        </div> -->
+
+        <!-- </div>
+    </div> -->
+
+
+
+
+
+
+        <script type="text/javascript">
+          function makeCompleted(uid) {
+            $.ajax({
+              url: "/make_complete",
+              method: "POST",
+              data: { unit_id: uid }
+            });
+            console.log(uid);
+            // location.reload(true);
+          }
+          function makeUncompleted(uid) {
+            $.ajax({
+              url: "/make_uncomplete",
+              method: "POST",
+              data: { unit_id: uid }
+            })
+            // location.reload(true);
+          }
+
+        </script>
+        <script>
+          $(document).ready(function () {
+            // $("#sidebar").removeClass("active")
+            $('#sidebarCollapse').on('click', function () {
+              $('#sidebar').toggleClass('active');
+            });
+          });  
+        </script>
+      </div>
+
+      <script src="/js/jquery-3.2.1.min.js"></script>
+      <script src="/plugins/scrollmagic/ScrollMagic.min.js"></script>
+      <script src="/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+      <script src="/js/custom.js"></script>
+</body>
+
+</html>
