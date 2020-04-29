@@ -23,13 +23,18 @@
       height: 9%;
     }
 
-    a h1:hover {
-      color: #9C103E;
-    }
-
     .card-content:hover {
 
       box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    }
+
+    #subzoom {
+      transition: transform .2s;
+
+    }
+
+    #subzoom:hover {
+      transform: scale(1.02);
     }
   </style>
 </head>
@@ -51,20 +56,23 @@
 
   <% if(sub.tutors){ %>
   <% sub.tutors.forEach(function (tutors) { %>
-  <div class="col-md-3 cards float-left mt-2 mb-2">
+  <div class="col-md-3 cards float-left mt-2 mb-2" id="subzoom">
     <div class="card p-3 card-content">
-      <div class="text-info text-center mt-3">
-        <a style="text-decoration: none;" href="/syllabus" onclick="sendtutid('<%= tutors._id %>','<%=sub._id%>')">
+      <div class=" text-center mt-3">
 
-          <div class="text-danger text-center mt-2">
-            <div class="card-img">
-              <img src="/images/tutor.jpg" alt="banner" width="65%">
-            </div>
-            <h1><%= tutors.name %></h1>
+        <div class=" text-center mt-2">
+          <div class="card-img">
+            <img src="/images/tutor.jpg" alt="banner" width="65%">
           </div>
-        </a>
-        <a style="text-decoration: none;" href="/tutes"
-          onclick="sendtutid('<%= tutors._id %>','<%=sub._id%>')">Tutes</a>
+          <h1><%= tutors.name %></h1>
+        </div>
+
+
+        <a style="text-decoration: none;" href="/syllabus" onclick="sendtutid('<%= tutors._id %>','<%=sub._id%>')">
+          <button class="btn btn-light btn-sm"><i class="fas fa-photo-video"></i> Video Lessons</button></a>
+
+        <a style="text-decoration: none;" href="/tutes" onclick="sendtutid('<%= tutors._id %>','<%=sub._id%>')"><button
+            class="btn btn-light btn-sm"><i class="fas fa-file-pdf"></i> PDF & Tutes</button></a>
 
       </div>
     </div>

@@ -16,6 +16,15 @@
     .featureImg {
       height: auto;
     }
+
+    #subzoom {
+      transition: transform .2s;
+
+    }
+
+    #subzoom:hover {
+      transform: scale(1.02);
+    }
   </style>
 </head>
 
@@ -116,7 +125,7 @@
             <div class="container mt-5">
               <div class="row">
 
-                <div class="col-md-4">
+                <div class="col-md-4" id="subzoom">
                   <a href="/subject" style="text-decoration: none;">
 
                     <div class="card-content">
@@ -132,7 +141,7 @@
 
                 </div>
 
-                <div class="col-md-4 ">
+                <!-- <div class="col-md-4" id="subzoom">
                   <a href="/tutes" style="text-decoration: none;">
 
                     <div class="card-content">
@@ -146,9 +155,9 @@
                     </div>
                   </a>
 
-                </div>
+                </div> -->
 
-                <div class="col-md-4 ">
+                <div class="col-md-4 " id="subzoom">
                   <a href="/live" style="text-decoration: none;">
 
                     <div class="card-content">
@@ -165,7 +174,7 @@
                 </div>
 
 
-                <div class="col-md-4 ">
+                <div class="col-md-4 " id="subzoom">
                   <a href="/quiz" style="text-decoration: none;">
 
                     <div class="card-content">

@@ -6,16 +6,16 @@ const userList = document.getElementById('users');
 const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true
 });
- console.log(username,room);
+console.log(username, room);
 
 
 const socket = io();
 
 
 //JOIN CHAT
- socket.emit('joinroom',{username,room})
+socket.emit('joinroom', { username, room })
 
- 
+
 // Get room and users
 socket.on('roomUsers', ({ room, users }) => {
   outputRoomName(room);
@@ -23,22 +23,22 @@ socket.on('roomUsers', ({ room, users }) => {
 });
 
 
-socket.on('message',message=>{
+socket.on('message', message => {
   console.log(message);
   outputMessage(message)
 
   // Scroll down
   chatMessages.scrollTop = chatMessages.scrollHeight;
-  
+
 })
 
-chatForm.addEventListener('submit',e =>{
+chatForm.addEventListener('submit', e => {
   e.preventDefault();
   //get message
-  const msg =e.target.elements.msg.value;
+  const msg = e.target.elements.msg.value;
   console.log(msg);
   //emit to server
-  socket.emit ('chatMessage',msg)
+  socket.emit('chatMessage', msg)
   // Clear input
   e.target.elements.msg.value = '';
   e.target.elements.msg.focus();
@@ -67,6 +67,6 @@ function outputRoomName(room) {
 // Add users to DOM
 function outputUsers(users) {
   userList.innerHTML = `
-    ${users.map(user => `<li>${user.username}</li>`).join('')}
+    ${users.map(user => `<li><i class="fas fa-caret-right"></i>&nbsp&nbsp${user.username}</li>`).join('')}
   `;
 }

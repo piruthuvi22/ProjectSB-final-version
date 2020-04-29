@@ -9,10 +9,10 @@
 		integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 	<link rel="stylesheet" href="css/style.css" />
 	<script src="app/public/js/jquery-3.2.1.js"></script>
-	<!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script> -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 	​
 	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
-	<!-- <%- include('sections/links')%> -->
+	<%- include('sections/links')%>
 	<title>School Bag</title>
 	<style>
 		@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
@@ -167,7 +167,7 @@
 			margin-bottom: 20px;
 		}
 
-		.join-main .form-control {
+		.join-main .form-control1 {
 			margin-bottom: 20px;
 		}
 
@@ -209,24 +209,31 @@
 				display: none;
 			}
 		}
+
+		.clr {
+			color: white;
+		}
 	</style>
 </head>
 
 <body>
+	<%- include('sections/navBar')%>
 
 	<div style="height:58px;"></div>
 	<div class="join-container">
 		<header class="join-header">
-			<h1><i class="fas fa-smile"></i> Chat</h1>
+			<h1 class="clr"><i class="fas fa-smile"></i> Chat</h1>
 		</header>
 		<main class="join-main">
 			<form action="chat">
-				<div class="form-control">
-					<h3 class="h3"><%=user.username%></h3>
-					<input type="text" name="username" id="username" value="<%=user.username%>" disabled hidden />
+				<div class="form-control1">
+					<h3 class="h3">Username : <i><%=user.username%></i></h3>
+					<input type="hidden" name="username" id="username" value="<%=user.username%>">
 				</div>
-				<div class="form-control">
-					<label for="room">Room</label>
+				<div class="form-control1">
+					<label for="room">
+						<h4 class="clr">Room</h4>
+					</label>
 					<select name="room" id="room">
 						<option value="Maths">Maths</option>
 						<option value="Science">Science</option>

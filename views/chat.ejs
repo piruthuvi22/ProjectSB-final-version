@@ -8,10 +8,10 @@
 		integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 	<link rel="stylesheet" href="css/style.css" />
 	<script src="app/public/js/jquery-3.2.1.js"></script>
-	<!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script> -->
-	​
+	​ <%- include('sections/links')%>
 
-	<title>School Bag</title>
+
+	<title>Chat Room</title>
 	<style>
 		@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
@@ -202,31 +202,37 @@
 				display: none;
 			}
 		}
+
+		.clr {
+			color: white;
+		}
 	</style>
 </head>
 
 <body>
+	<%- include('sections/navBar')%>
 
 	<div style="height:58px;"></div>
 	<div class="chat-container">
 		<header class="chat-header">
-			<h1> <img src="/images/logo1.png" height="60px" alt="SchoolBag">
+			<h1 class="clr"> <img src="/images/logo1.png" height="60px" alt="SchoolBag">
 				</i> Chat</h1>
-			<a href="/room" class="btn">Leave Room</a>
+			<a href="/room" class="btn"><i class="fas fa-sign-out-alt">Leave Room</i></a>
 		</header>
 		<main class="chat-main">
 			<div class="chat-sidebar">
-				<h3><i class="fas fa-comments"></i> Room Name:</h3>
-				<h2 id="room-name"></h2>
-				<h3><i class="fas fa-users"></i> Users</h3>
+				<h3 class="clr"><i class="fas fa-comments"></i> Room Name:</h3>
+				<h2 class="clr" id="room-name"></h2>
+				<h3 class="clr"><i class="fas fa-users"></i> Users</h3>
 				<ul id="users"></ul>
 			</div>
 			<div class="chat-messages"></div>
 		</main>
 		<div class="chat-form-container">
 			<form id="chat-form">
-				<input id="msg" type="text" placeholder="Enter Message" required autocomplete="off" />
-				<button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
+				<input id="msg" class="form-control" type="text" placeholder="Enter Message" required
+					autocomplete="off" />
+				<button class="btn ml-2"><i class="fas fa-paper-plane"></i> Send</button>
 			</form>
 		</div>
 	</div>
