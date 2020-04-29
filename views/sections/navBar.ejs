@@ -17,7 +17,7 @@
                 <li id="zoom"><a href="/#aboutUs" id="" style="text-decoration: none;">About</a></li>
 
                 <%if (user){%>
-                <li id="zoom"><a style="text-decoration: none;" href="/room">Chat</a></li>
+
 
                 <li>
                   <div class="dropdown">
@@ -52,6 +52,8 @@
                         <hr>
                         <a href="/profile" style="text-decoration: none;"
                           class="text-dark dropdown-item text-align-center">Profile</a>
+                        <a style="text-decoration: none;" href="/room"
+                          class="text-dark dropdown-item text-align-center">Chat</a>
                         <a href="/users/logout" style="text-decoration: none;"
                           class="text-dark dropdown-item text-align-center">Logout</a>
                       </div>
@@ -78,7 +80,6 @@
 
                           <hr>
                           <%if (user){%>
-                <li class="menu_mm"><a style="text-decoration: none;" href="/room">Chat</a></li>
 
                 <li>
                   <img alt="user" src="/images/notification.png" style="height: 30px;" id="notepic">
@@ -102,6 +103,9 @@
                 <hr>
                 <li class="menu_mm">
                   <a href="/profile" style="text-decoration: none;" class="text-dark text-align-right">Profile</a><br>
+                </li>
+                <li class="menu_mm">
+                  <a href="/room" style="text-decoration: none;" class="text-dark text-align-right">Chat</a><br>
                 </li>
                 <li class="menu_mm">
                   <a href="/users/logout" style="text-decoration: none;" class="text-dark text-align-right">Logout</a>
