@@ -14,11 +14,14 @@ module.exports = function (app, db) {
   quizRoutes(app, db);
 
   app.get('/room', isLoggedIn, (req, res) => {
-    if (req.user) {
-      res.render('room', { user: req.user, notification: notific })
-    } else {
-      res.render('room', { user: req.user })
-    }
+    db.collection('subjects').find({}).toArray((err, subjects) => {
+      if (err) {
+        res.send({ 'error': 'An error has occurred' });
+      } else {
+        res.render('room.ejs', { "subjects": subjects, "user": req.user, notification: notific })
+      }
+    });
+
   })
 
   app.get('/chat', isLoggedIn, (req, res) => {
@@ -200,8 +203,6 @@ module.exports = function (app, db) {
   app.post('/tutor', (req, res) => {
     tubid = ObjectID(req.body.tutor);
     subid = ObjectID(req.body.subject);
-    tubid1 = req.body.tutor;
-    subid1 = req.body.subject;
     console.log(tubid);
     console.log(subid);
   });
@@ -220,7 +221,8 @@ module.exports = function (app, db) {
   });
 
   app.get('/live', isLoggedIn, (req, res) => {
-    db.collection('live').findOne({}, ((err, live) => {
+    var query = { 'subjectid': subid, 'tutorid': tubid }
+    db.collection('live').findOne(query, ((err, live) => {
       if (err) {
         res.send({ 'error': 'An error found' });
       } else {
@@ -234,9 +236,33 @@ module.exports = function (app, db) {
     var id = req.params.id
     var comment_id = ObjectID();
     db.collection('live').update({ _id: ObjectID(req.body.unit_id) }, { $push: { "comments": { _id: comment_id, name: req.body.name, user_id: req.body.user_id, comment: req.body.comment, time: moment().format("ddd, MMM Do YYYY, h:mm:ss a") } } }, (error, post) => {
-      res.redirect('/syllabus/' + id);
+      res.redirect('/live');
     });
     console.log(req.body);
+  })
+
+  app.post('/reply_live/:id', (req, res) => {
+    var id = req.params.id
+    var reply_id = ObjectID();
+    var notification = { forWhome: ObjectID(req.body.commentUser_id), what: "replied your comment in live page", who: [ObjectID(req.body.user_id), req.body.name], where: ObjectID(req.body.unit_id), time: moment().format("ddd, MMM Do YYYY, h:mm:ss a") };
+    db.collection('notification').insert(notification);
+    db.collection('live').update({ "_id": ObjectID(req.body.unit_id), "comments._id": ObjectID(req.body.comment_id) }, { $push: { "comments.$.replies": { _id: reply_id, name: req.body.name, user_id: req.body.user_id, reply: req.body.reply } } }, (error, post) => {
+      res.redirect('/live');
+    })
+  })
+
+  app.post('/reply_live_delete/:id', (req, res) => {
+    var id = req.params.id
+    db.collection('live').update({ _id: ObjectID(req.body.unit_id), "comments._id": ObjectID(req.body.comment_id) }, { $pull: { "comments.$.replies": { _id: ObjectID(req.body.reply_id) } } }, (error, post) => {
+      res.redirect('/live');
+    });
+  })
+
+  app.post('/comment_live_delete/:id', (req, res) => {
+    var id = req.params.id
+    db.collection('live').update({ _id: ObjectID(req.body.unit_id) }, { $pull: { "comments": { _id: ObjectID(req.body.comment_id) } } }, (error, post) => {
+      res.redirect('/live');
+    });
   })
 
   app.get('/profilepage', isLoggedIn, (req, res) => {
@@ -347,7 +373,13 @@ module.exports = function (app, db) {
   app.post('/comment/:id', (req, res) => {
     var id = req.params.id
     var comment_id = ObjectID();
-    db.collection('units').update({ _id: ObjectID(req.body.unit_id) }, { $push: { "comments": { _id: comment_id, name: req.body.name, user_id: req.body.user_id, comment: req.body.comment } } }, (error, post) => {
+    db.collection('units').update({ _id: ObjectID(req.body.unit_id) }, {
+      $push: {
+        "comments": {
+          _id: comment_id, name: req.body.name, user_id: req.body.user_id, comment: req.body.comment, time: moment().format("ddd, MMM Do YYYY, h:mm:ss a")
+        }
+      }
+    }, (error, post) => {
       res.redirect('/syllabus/' + id);
     });
     console.log(req.body);
@@ -375,7 +407,7 @@ module.exports = function (app, db) {
     var reply_id = ObjectID();
     var notification = { forWhome: ObjectID(req.body.commentUser_id), what: "replied your comment", who: [ObjectID(req.body.user_id), req.body.name], where: ObjectID(req.body.unit_id), time: moment().format("ddd, MMM Do YYYY, h:mm:ss a") };
     db.collection('notification').insert(notification);
-    db.collection('units').update({ "_id": ObjectID(req.body.unit_id), "comments._id": ObjectID(req.body.comment_id) }, { $push: { "comments.$.replies": { _id: reply_id, name: req.body.name, user_id: req.body.user_id, reply: req.body.reply } } }, (error, post) => {
+    db.collection('units').update({ "_id": ObjectID(req.body.unit_id), "comments._id": ObjectID(req.body.comment_id) }, { $push: { "comments.$.replies": { _id: reply_id, name: req.body.name, user_id: req.body.user_id, reply: req.body.reply, time: moment().format("ddd, MMM Do YYYY, h:mm:ss a") } } }, (error, post) => {
       res.redirect('/syllabus/' + id);
     })
   })
@@ -401,7 +433,7 @@ module.exports = function (app, db) {
 
   // GET data
   app.get('/tutes', isLoggedIn, (req, res) => {
-    var query = { "metadata.subjectid": subid1, "metadata.tutorid": tubid1 }
+    var query = { "metadata.subjectid": subid, "metadata.tutorid": tubid }
     // var query22 = { 'subjectid': subid, 'tutorid': tubid }
     gfs.files.find(query).toArray((err, files) => {
       // Check if files

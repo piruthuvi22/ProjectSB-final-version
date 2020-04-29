@@ -17,6 +17,8 @@
 <body>
   <%- include('sections/navBar',{user:user})%>
   <div style="height:90px;"></div>
+  <%if (live) {%>
+
 
   <div class="container-fluid bg-1">
     <div class="row p-2">
@@ -118,6 +120,10 @@
             </div>
           </div>
         </div>
+        <%}else{%>
+        <h4>This tutor has no live video</h4>
+        <%}%>
+
         <script src="/js/jquery-3.2.1.min.js"></script>
         <script src="/plugins/scrollmagic/ScrollMagic.min.js"></script>
         <script src="/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>

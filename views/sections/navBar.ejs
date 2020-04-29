@@ -69,33 +69,36 @@
 
                   <!-- Hamburger -->
 
-                  <div class="hamburger menu_mm">
-                    <i class="fa fa-bars menu_mm" aria-hidden="true"></i>
-                    <div class="menu d-flex flex-column align-items-end justify-content-start text-right menu_mm trans_400">
-                      <div class="menu_close_container"><div class="menu_close"><div></div><div></div></div></div>
-                      <nav class="menu_nav">
-                        <ul class="menu_mm">
-                          <li class="menu_mm"><a href="/"  style="text-decoration: none;">Home</a></li>
-                          <li class="menu_mm"><a href="/#aboutUs"  style="text-decoration: none;">About</a></li>
-
-                          <hr>
-                          <%if (user){%>
+        <div class="hamburger menu_mm">
+            <i class="fa fa-bars menu_mm" aria-hidden="true"></i>
+              <div class="menu d-flex flex-column align-items-end justify-content-start text-right menu_mm trans_400">
+                <div class="menu_close_container"><div class="menu_close"><div></div><div></div></div></div>
+                <nav class="menu_nav">
+                  <ul class="menu_mm">
+                    <li class="menu_mm"><a href="/"  style="text-decoration: none;">Home</a></li>
+                    <li class="menu_mm"><a href="/#aboutUs"  style="text-decoration: none;">About</a></li>
+                  <hr>
+                  <%if (user){%>
 
                 <li>
-                  <img alt="user" src="/images/notification.png" style="height: 30px;" id="notepic">
-                  <% if (notification){%>
-                  <% notification.forEach(function(notification){%>
-                  <a href="/syllabus/<%= notification.where%>" class="text-dark dropdown-item text-align-center"
-                    style="text-decoration: none;"><%= notification.who[1]%> <%= notification.what%> </a>
-                  <% }) %>
-                  <% }else{ %>
-                  <a href="#" class="text-dark dropdown-item text-align-center disabled"
-                    style="text-decoration: none;">No Notifications</a>
-                  <%}%>
-                            </li>
-                          <li class="menu_mm">
-                                  <img src="/images/<%= user.username %>" onerror="this.src='/images/profile.png';"
-                  alt="Profile Pic" height="60px">
+                  <img alt="user" src="/images/notification.png" class="dropdown-toggle" style="height: 30px;"
+                    id="notepic" data-toggle="dropdown">
+                  <div class="dropdown-menu shadow w-auto">
+
+                    <% if (notification){%>
+                    <% notification.forEach(function(notification){%>
+                    <a href="/syllabus/<%= notification.where%>" class="text-dark  text-align-center"
+                      style="text-decoration: none;"><%= notification.who[1]%> <%= notification.what%> </a>
+                    <% }) %>
+                    <% }else{ %>
+                    <a href="#" class="text-dark dropdown-item text-align-center disabled"
+                      style="text-decoration: none;">No Notifications</a>
+                    <%}%>
+                  </div>
+                </li>
+                <li class="menu_mm">
+                    <img src="/images/<%= user.username %>" onerror="this.src='/images/profile.png';" alt="Profile Pic"
+                    height="60px">
                 </li>
                 <li class="menu_mm">
                   <p class="text-align-right"><b><%=user.name%></b><br> <%=user.email%> </p>
@@ -116,7 +119,7 @@
                 <li><a href="/users/register" style="text-decoration: none;">Signup</a></li>
                 <%}%>
                 
-                        </ul>
+                </ul>
                       </nav>
                     </div>
                   </div>

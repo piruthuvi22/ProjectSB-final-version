@@ -91,17 +91,20 @@
                 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
             </div>
-            <div id="complete">
+            <!-- <div id="complete">
               <% if (units.completed.includes(user.username)) {%>
-              <button class="btn btn-lg" onclick="makeUncompleted('<%= units._id %>')"><i
-                  class="fas fa-times-circle"></i><%= units.completed.length %> have completed</i></button>
+              <form method="POST" target="/make_complete">
+                <input type=" text" value="<%=unit._id%>">
+                <button type="submit">Sub</button>
+              </form>
               <% }else { %>
               <button class="btn btn-lg" onclick="makeCompleted('<%= units._id %>')"><i
                   class="fas fa-check-circle"></i></button>
               <% } %>
-              <p class="p-3"><%= units.description %></p>
 
-            </div>
+            </div> -->
+            <p class="p-3 mt-3"><%= units.description %></p>
+
           </div>
     </div>
   </div>
@@ -115,7 +118,9 @@
       <div class="media-body">
         <div class="media mt-3 shadow-textarea">
           <div class="media-body">
-            <h5 class="mt-0 font-weight-bold" style="color: #14bdee;"><%= comments.name %></h5>
+            <h5 class="mt-0 font-weight-bold" style="color: #14bdee;"><%= comments.name %>
+              <small class="text-dark">| <%=comments.time%></small>
+            </h5>
             <%= comments.comment %>
           </div>
           <%if (user._id == comments.user_id){%>
@@ -133,7 +138,8 @@
             <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="/images/<%= reply.name %>"
               alt="Generic placeholder image">
             <div class="media-body">
-              <h5 class="mt-0 font-weight-bold"style="color:#14bdee"><%= reply.name %><%= reply.time%></h5>
+              <h5 class="mt-0 font-weight-bold" style="color:#14bdee"><%= reply.name %>| <small
+                  class="text-dark"><%= reply.time%></small></h5>
               <%= reply.reply %>
             </div>
 
