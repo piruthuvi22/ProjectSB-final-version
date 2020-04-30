@@ -82,10 +82,10 @@
 			</nav>
 
       
-    <div class="col p-3" style="background-color:#f7edf2; border-radius: 8px;">
-      <div id="<%= units._id %>" class="unit p-3">
-          <h1 class="p-2"><%= units.title %></h1>
-          <div class="p-2">
+    <div class="col" style="background-color:#f7edf2; border-radius: 8px;">
+      <div id="<%= units._id %>" class="unit">
+          <h1 class="mb-3"><%= units.title %></h1>
+          <div class="">
             <div style="position:relative;padding-top:56.25%;">
               <iframe style="position: absolute;top:0;left:0;width:100%;height:100%;" src="<%= units.urlID %>"
                 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -103,7 +103,7 @@
               <% } %>
 
             </div> -->
-            <p class="p-3 mt-3"><%= units.description %></p>
+            <p class="mt-3"><%= units.description %></p>
 
           </div>
     </div>
@@ -114,7 +114,8 @@
     <%if (units.comments) {%>
     <% units.comments.forEach((comments)=>{%>
     <div class="media mt-3 shadow-textarea">
-      <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="/images/<%= comments.name %>" alt="Avatar">
+      <img class="d-flex rounded-circle avatar z-depth-1-half ml-3 mr-3" src="/images/<%= comments.name %>"
+        alt="Avatar">
       <div class="media-body">
         <div class="media mt-3 shadow-textarea">
           <div class="media-body">
