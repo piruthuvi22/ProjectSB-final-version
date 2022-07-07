@@ -22,7 +22,7 @@
     "express-session": "^1.17.0",
     "gridfs": "^1.0.0",
     "method-override": "^2.3.10",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "mongodb": "^2.2.16",
     "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
