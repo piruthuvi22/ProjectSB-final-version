@@ -31,7 +31,7 @@
     "nodemon": "^1.18.9",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.5.0",
     "stream": "0.0.2"
   },
   "engines": {
